@@ -6,15 +6,16 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Note {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  title      String
-  content    String
-  isFavorite Boolean @default(false)
-  color      String @default("#ffffff")
+  id         String   @id @default(uuid())
+  title      String   @db.Text
+  content    String   @db.Text
+  isFavorite Boolean  @default(false)
+  color      String   @default("#ffffff")
   createdAt  DateTime @default(now())
 }
